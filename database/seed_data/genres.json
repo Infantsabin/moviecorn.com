@@ -1,0 +1,22 @@
+[
+    {
+        "id": "1",
+        "name": "Horor",
+        "image": "https://miro.medium.com/max/1000/1*HyxHJfTqBvwa6DIei8DHLg.png"
+    },
+    {
+        "id": "2",
+        "name": "Comedy",
+        "image": "https://miro.medium.com/max/1000/1*HyxHJfTqBvwa6DIei8DHLg.png"
+    },
+    {
+        "id": "3",
+        "name": "Action",
+        "image": "https://miro.medium.com/max/1000/1*HyxHJfTqBvwa6DIei8DHLg.png"
+    },
+    {
+        "id": "4",
+        "name": "Family Drama",
+        "image": "https://kbimages1-a.akamaihd.net/dd6a6bfe-62ba-4fb8-9285-1551b339675e/1200/1200/False/family-drama-2.jpg"
+    }
+]
