@@ -9,6 +9,12 @@
     <div class="logo"></div><div class="subtitle"><h3>MovieCorn</h3></div>
       <div class="subtitle">
       <p>Genres</p>
+      @if(old('notification'))
+      <div class="toast success">
+        {{ old('notification') }}
+      </div>
+      <br />
+      @endif
       @if(genreList.length === 0)
       <p>Sorry,No Genre Available</p>
       @else
@@ -19,13 +25,65 @@
             <img src="{{ list.image }}" id={{ ($loop.index + 1) }} alt="" width="600" height="400">
           </a>
           <div class="desc">{{ list.name }}</div>
+          <button class="btn edit" onclick="editForm('{{ ($loop.index + 1) }}','{{ list.image }}','{{ list.name }}')">Edit</button>
+          <button class="btn delete"><a href="{{ route('deleteGenre', { id: $loop.index + 1 }) }}">Delete</a></button>
         </div>
       </div>
       @endeach
       @endif
+    </div>
+    <button class="open-button" onclick="openForm()">Add Genre</button>
+    <div class="form-popup" id="myForm">
+      <form action="{{ route('createGenre') }}" method="POST" class="form-container">
+        {{ csrfField() }}
+        <h1>New Genre</h1>
+        <br />
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name of the genre" name="name" required>
+
+        <label for="img"><b>Image Url</b></label>
+        <input type="text" placeholder="Enter Image Url" name="img" required>
+
+        <button type="submit" class="btn">Create</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+
+    <div class="form-popup" id="myForm2">
+      <form id="editForm" method="POST" class="form-container">
+        {{ csrfField() }}
+        <h1>Update Genre</h1>
+        <br />
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name of the genre" name="name" id='a'required>
+
+        <label for="img"><b>Image Url</b></label>
+        <input type="text" placeholder="Enter Image Url" name="img" id='b' required>
+
+        <button type="submit" class="btn">Update</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
     </div>
     <p class="footer">
         Created By <a href="https://infantsabin.netlify.com">Infant Sabin</a>.
     </p>
 </body>
 </html>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+}
+
+function editForm(id, url, name) {
+  document.getElementById("myForm2").style.display = "block";
+
+  document.getElementById("a").value = name;
+  document.getElementById("b").value = url;
+  document.getElementById("editForm").action = '/edit/' + id
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+  document.getElementById("myForm2").style.display = "none";
+}
+</script>
