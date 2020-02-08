@@ -3,10 +3,11 @@
 const Genre = use('App/Models/Genre')
 
 class BaseController {
-	async getGenreList({ response }) {
+	async index({ response, view }) {
 		var genreList = await Genre.all()
 		genreList = genreList.toJSON()
-		response.send(genreList)
+		// response.send(genreList)
+		return view.render('genre', { genreList })
 	}
 }
 

@@ -16,11 +16,13 @@
 /** @type {typeof import('@adonisjs/framework/src/Route/Manager')} */
 const Route = use('Route')
 
-Route.on('/', () => 'hi')
+// Route.on('/').render('welcome')
 
-Route.group(() => {
-	Route.get('get-genres', 'BaseController.getGenreList')
-}).prefix('api')
+// Route.group(() => {
+// 	Route.get('get-genres', 'BaseController.getGenreList').as('genres')
+// }).prefix('api')
+Route.get('/', 'BaseController.index') 
+Route.get('/genre:id', 'BaseController.list') 
 
 Route.get('*', ({ response }) => {
   return 'Sorry, page not found'
