@@ -7,25 +7,109 @@
 </head>
 <body>  
     <div class="logo"></div><div class="subtitle"><h3>MovieCorn</h3></div>
-      <div class="subtitle">
-      <p>Movies</p>
+   <div class="subtitle">
+      <div style="text-align: right;">
+        <a href="{{ route('/') }}">Home</a>
+      </div>
+      <div style="text-align: left;">
+        <a href="{{ route('/') }}">Back</a>
+      </div>
+    </div>
+    <div class="subtitle">
+      <p>{{ movieList.name }} Movies</p>
+      @if(old('notification'))
+      <div class="toast success">
+        {{ old('notification') }}
+      </div>
+      <br />
+      @endif
       @if(movieList.length === 0)
       <p>Sorry, No Movies Available</p>
       @else
-      @each(list in movieList)
+      @each(list in movieList.movies)
       <div class="responsive">
         <div class="gallery">
-          <a href="{{ route('detail', { id: $loop.index + 1 }) }}">
-            <img src="{{ list.image }}" id={{ ($loop.index + 1) }} alt="" width="600" height="400">
+          <a href="{{ route('detail', { id: list.id }) }}">
+            <img src="{{ list.image }}" id="{{ list.id }}" alt="" width="600" height="400">
           </a>
           <div class="desc">{{ list.name }}</div>
+          <button class="btn edit" onclick="editForm('{{ list.id }}', '{{ list.name }}', '{{ list.image }}', '{{ list.details[0].director }}', '{{ list.details[0].year }}')">Edit</button>
+          <button class="btn delete"><a href="{{ route('deleteMovie', { id: list.id }) }}">Delete</a></button>
         </div>
       </div>
       @endeach
       @endif
+    </div>
+    <button class="open-button" onclick="openForm()">Add Movie</button>
+    <div class="form-popup" id="myForm">
+      <form action="{{ route('createMovie', { id:  movieList.id  }) }}" method="POST" class="form-container">
+        {{ csrfField() }}
+        <h1>New Movie</h1>
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name of the Movie" name="name" required>
+
+        <label for="img"><b>Image Url</b></label>
+        <input type="text" placeholder="Enter Image Url" name="img" required>
+
+        <label for="summary"><b>Summary</b></label>
+        <input type="text" placeholder="Enter Summary" name="summary" required>
+
+        <label for="director"><b>Director Name</b></label>
+        <input type="text" placeholder="Enter Director name" name="director" required>
+
+        <label for="year"><b>Year</b></label>
+        <input type="text" placeholder="Enter Year" name="year" required>
+
+        <button type="submit" class="btn">Add</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
+    </div>
+     <div class="form-popup" id="myForm2">
+      <form id="editForm" method="POST" class="form-container">
+        {{ csrfField() }}
+        <h1>Update Movie</h1>
+        <br />
+        <label for="name"><b>Name</b></label>
+        <input type="text" placeholder="Enter Name of the Movie" name="name" id='a'required>
+
+        <label for="img"><b>Image Url</b></label>
+        <input type="text" placeholder="Enter Image Url" name="img" id='b' required>
+
+        <label for="director"><b>Director Name</b></label>
+        <input type="text" placeholder="Enter Director name" name="director" id='d' required>
+
+        <label for="year"><b>Year</b></label>
+        <input type="text" placeholder="Enter Year" name="year" id='e' required>
+
+        <button type="submit" class="btn">Update</button>
+        <button type="button" class="btn cancel" onclick="closeForm()">Close</button>
+      </form>
     </div>
     <p class="footer">
         Created By <a href="https://infantsabin.netlify.com">Infant Sabin</a>.
     </p>
 </body>
 </html>
+<script>
+function openForm() {
+  document.getElementById("myForm").style.display = "block";
+  document.getElementById("myForm2").style.display = "none";
+
+}
+
+function editForm(id, name, url, director, year) {
+  document.getElementById("myForm2").style.display = "block";
+  document.getElementById("a").value = name;
+  document.getElementById("b").value = url;
+  // document.getElementById("c").value = summary;
+  document.getElementById("d").value = director;
+  document.getElementById("e").value = year;
+  document.getElementById("editForm").action = '/movie-edit/' + id
+  document.getElementById("myForm").style.display = "none";
+}
+
+function closeForm() {
+  document.getElementById("myForm").style.display = "none";
+  document.getElementById("myForm2").style.display = "none";
+}
+</script>

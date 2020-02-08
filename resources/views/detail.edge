@@ -7,15 +7,21 @@
 </head>
 <body>  
     <div class="logo"></div><div class="subtitle"><h3>MovieCorn</h3></div>
+    <div class="subtitle">
+      <div style="text-align: right;">
+        <a href="{{ route('/') }}">Home</a>
+      </div>
+      <div style="text-align: left;">
+        <a href="{{ route('movie', { id: movieDetail.genre_id }) }}">Back</a>
+      </div>
+    </div>
       <div class="subtitle">
       @if(movieDetail.length === 0)
       <p>Sorry, No stories Available</p>
       @else
       <div class="responsive">
         <div class="gallery">
-          <a href="{{ route('detail', { id: $loop.index + 1 }) }}">
             <img src="{{ movieDetail.image }}" id={{ ($loop.index + 1) }} alt="" width="600" height="400">
-          </a>
           <div class="desc">{{ movieDetail.name }}</div>
         </div>
       </div>

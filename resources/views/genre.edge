@@ -21,12 +21,12 @@
       @each(list in genreList)
       <div class="responsive">
         <div class="gallery">
-          <a href="{{ route('movie', { id: $loop.index + 1 }) }}">
+          <a href="{{ route('movie', { id: list.id }) }}">
             <img src="{{ list.image }}" id={{ ($loop.index + 1) }} alt="" width="600" height="400">
           </a>
           <div class="desc">{{ list.name }}</div>
-          <button class="btn edit" onclick="editForm('{{ ($loop.index + 1) }}','{{ list.image }}','{{ list.name }}')">Edit</button>
-          <button class="btn delete"><a href="{{ route('deleteGenre', { id: $loop.index + 1 }) }}">Delete</a></button>
+          <button class="btn edit" onclick="editForm('{{list.id}}','{{list.name}}','{{list.image}}')">Edit</button>
+          <button class="btn delete"><a href="{{ route('deleteGenre', { id: list.id }) }}">Delete</a></button>
         </div>
       </div>
       @endeach
@@ -72,14 +72,16 @@
 <script>
 function openForm() {
   document.getElementById("myForm").style.display = "block";
+  document.getElementById("myForm2").style.display = "none";
 }
 
-function editForm(id, url, name) {
+function editForm(id, name, url) {
   document.getElementById("myForm2").style.display = "block";
 
   document.getElementById("a").value = name;
   document.getElementById("b").value = url;
-  document.getElementById("editForm").action = '/edit/' + id
+  document.getElementById("editForm").action = '/genre-edit/' + id
+  document.getElementById("myForm").style.display = "none";
 }
 
 function closeForm() {

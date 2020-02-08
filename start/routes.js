@@ -29,6 +29,10 @@ Route.post('/genre-add', 'BaseController.createGenre').as('createGenre')
 Route.post('/genre-edit/:id', 'BaseController.editGenre').as('editGenre')
 Route.get('/genre-delete/:id', 'BaseController.deleteGenre').as('deleteGenre')
 
+Route.post('/movie-add/:id', 'BaseController.createMovie').as('createMovie')
+Route.post('/movie-edit/:id', 'BaseController.editMovie').as('editMovie')
+Route.get('/movie-delete/:id', 'BaseController.deleteMovie').as('deleteMovie')
+
 Route.get('*', ({ response }) => {
   return 'Sorry, page not found'
 })
