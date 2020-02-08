@@ -21,8 +21,9 @@ const Route = use('Route')
 // Route.group(() => {
 // 	Route.get('get-genres', 'BaseController.getGenreList').as('genres')
 // }).prefix('api')
-Route.get('/', 'BaseController.index') 
-Route.get('/genre:id', 'BaseController.list') 
+Route.get('/', 'BaseController.index') .as('home')
+Route.get('/genre/:id', 'BaseController.show').as('movie')
+Route.get('/movie/:id', 'BaseController.detail').as('detail')
 
 Route.get('*', ({ response }) => {
   return 'Sorry, page not found'

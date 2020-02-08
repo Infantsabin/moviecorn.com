@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Movie Corn</title>
+  {{ style('style') }}
+</head>
+<body>  
+    <div class="logo"></div><div class="subtitle"><h3>MovieCorn</h3></div>
+      <div class="subtitle">
+      @if(movieDetail.length === 0)
+      <p>Sorry, No stories Available</p>
+      @else
+      <div class="responsive">
+        <div class="gallery">
+          <a href="{{ route('detail', { id: $loop.index + 1 }) }}">
+            <img src="{{ movieDetail.image }}" id={{ ($loop.index + 1) }} alt="" width="600" height="400">
+          </a>
+          <div class="desc">{{ movieDetail.name }}</div>
+        </div>
+      </div>
+      <div class="desc">
+        <h4 style="text-align: left;">Summary</h4><br />
+        <dir>
+          {{ movieDetail.details[0].summary }}
+        </dir>
+      </div>
+      <div class="desc">
+        <h4 style="text-align: left;">Director</h4><br />
+        <dir>
+          {{ movieDetail.details[0].director }}
+        </dir>
+      </div>
+      <div class="desc">
+        <h4 style="text-align: left;">Year of release</h4><br />
+        <dir>
+          {{ movieDetail.details[0].year }}
+        </dir>
+      </div>
+      @endif
+    </div>
+    <p class="footer">
+        Created By <a href="https://infantsabin.netlify.com">Infant Sabin</a>.
+    </p>
+</body>
+</html>

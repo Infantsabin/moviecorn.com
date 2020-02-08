@@ -8,14 +8,14 @@
 <body>  
     <div class="logo"></div><div class="subtitle"><h3>MovieCorn</h3></div>
       <div class="subtitle">
-      <p>Genres</p>
-      @if(genreList.length === 0)
-      <p>Sorry,No Genre Available</p>
+      <p>Movies</p>
+      @if(movieList.length === 0)
+      <p>Sorry, No Movies Available</p>
       @else
-      @each(list in genreList)
+      @each(list in movieList)
       <div class="responsive">
         <div class="gallery">
-          <a href="{{ route('movie', { id: $loop.index + 1 }) }}">
+          <a href="{{ route('detail', { id: $loop.index + 1 }) }}">
             <img src="{{ list.image }}" id={{ ($loop.index + 1) }} alt="" width="600" height="400">
           </a>
           <div class="desc">{{ list.name }}</div>
